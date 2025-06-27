@@ -145,7 +145,24 @@ class TaskCLI():
         UserIN = UserInput(self.prompt, self.commands)
         while True:
             user_input = UserIN.callInput()
-            if not user_input.is_valid: continue
+            if not user_input.is_valid:
+                print("""\nCommands for task-cli:
+----------------
+IMPORTANT:
+* - required argument
+words 'todo' and 'not-done' is synonyms
+
+task-cli add *[description] - Add task to your list
+task-cli delete *[Task ID] - Removes task from your list
+task-cli update *[Task ID] *[description] - Updates description of task
+
+task-cli list [done/in-progress/todo] - list your tasks
+
+task-cli mark-todo *[Task ID] - Marks your task as not done                 
+task-cli mark-in-progress *[Task ID] - Marks your task as in-progress
+task-cli mark-done *[Task ID] - Marks your task as done
+"""
+                      )
             self.process(user_input.command, user_input.args)
             self.database.save()
             print("\n")
