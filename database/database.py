@@ -15,9 +15,11 @@ class JSONDatabase():
         if key is not None: return self.__objects[key] if key in self.__objects else None
         return list(self.__objects.values())
     
-    def update(self, task: Task) -> None:
+    def update(self, task: Task) -> bool:
         if task.id in self.__objects:
             self.__objects[task.id] = task
+            return True
+        return False
 
     def delete(self, key: int) -> Task|None:
         if key in self.__objects:
